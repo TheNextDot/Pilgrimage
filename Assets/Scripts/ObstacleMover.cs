@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class ObstacleMover : MonoBehaviour
 {
-    Vector3 currentPos;
-
+    readonly float speed = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector3(transform.position.x - 0.1f, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
     }
 }
