@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] GameObject[] obstaclePrefab;
+    [SerializeField] float[] spawnInterval;
 
-    void Start()
+
+     void Start()
     {
-        StartCoroutine(SpawnEnemies());   
+        StartCoroutine(SpawnEnemies());
     }
 
     IEnumerator SpawnEnemies()
     {
         while (true)
         {
-            Instantiate(obstaclePrefab, transform);
-
-            yield return new WaitForSeconds(3f);
-
+            Instantiate(obstaclePrefab[Random.Range(0, 2)], transform);
+            yield return new WaitForSeconds(spawnInterval[(Random.Range(1,3))]);
         }
-
-
     }
 
 }
