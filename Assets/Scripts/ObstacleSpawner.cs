@@ -17,8 +17,8 @@ public class ObstacleSpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(obstaclePrefab[Random.Range(0, 2)], transform);
-            yield return new WaitForSeconds(spawnInterval[(Random.Range(1,3))]);
+            Instantiate(obstaclePrefab[Random.Range(0, 3)], transform);
+            yield return new WaitForSeconds(spawnInterval[(Random.Range(1,4))]);
         }
     }
 

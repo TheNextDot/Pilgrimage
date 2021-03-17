@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ObstacleDestroyer : MonoBehaviour
 {
+    ScoreCounter scoreCounter;
+    void Start()
+    {
+        scoreCounter = FindObjectOfType<ScoreCounter>();
+    }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision detected");
+        scoreCounter.AddScore();
         Destroy(other.gameObject);
+
     }
 }

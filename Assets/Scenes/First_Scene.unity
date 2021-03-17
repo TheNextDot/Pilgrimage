@@ -274,6 +274,7 @@ MonoBehaviour:
   - 0
   - 1
   - 2
+  - 3
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +405,7 @@ MonoBehaviour:
   - 0
   - 1
   - 2
+  - 3
 --- !u!4 &772426363
 Transform:
   m_ObjectHideFlags: 0
@@ -864,6 +866,7 @@ MonoBehaviour:
   - 0
   - 1
   - 2
+  - 3
 --- !u!1 &1921024453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,6 +1209,14 @@ PrefabInstance:
     - target: {fileID: 6467859708554426661, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467859708554426661, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467859708554426662, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}

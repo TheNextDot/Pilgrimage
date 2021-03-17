@@ -14,9 +14,8 @@ public class ScoreCounter : MonoBehaviour
         currentScore = 0;
     }
 
-    private void HandleScore()
+    void Update()
     {
-
         scoreText.text = "Score: " + currentScore;
     }
 
