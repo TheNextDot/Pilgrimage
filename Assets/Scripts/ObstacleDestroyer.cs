@@ -15,6 +15,5 @@ public class ObstacleDestroyer : MonoBehaviour
     {
         scoreCounter.AddScore();
         Destroy(other.gameObject);
-
     }
 }

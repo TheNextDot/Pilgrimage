@@ -10,7 +10,7 @@ public class PlayerDestroyer : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             print("trigger");
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
 
     }
