@@ -43,7 +43,7 @@ public class PlayerControl : MonoBehaviour
         {
             lane++;
         }
-        rb.MovePosition(new Vector3(X, Y, BASE_Z - ((float)lane)));
+        transform.position = new Vector3(X, Y, BASE_Z - ((float)lane));
     }
 
 }
