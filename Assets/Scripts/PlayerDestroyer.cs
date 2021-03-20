@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDestroyer : MonoBehaviour
 {
@@ -13,11 +14,16 @@ public class PlayerDestroyer : MonoBehaviour
             if (playerControl.ability != obstacleType)
             {
                 Destroy(other.gameObject);
+                SceneManager.LoadScene(0);
             }
             else
             {
-                this.GetComponent<ParticleSystem>().Play();
-                this.GetComponent<MeshRenderer>().enabled = false;   
+                if (this.GetComponent<ParticleSystem>())
+                {
+                    this.GetComponent<ParticleSystem>().Play();
+                    this.GetComponent<MeshRenderer>().enabled = false;
+                }
+  
             }
         }
     }
