@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDestroyer : MonoBehaviour
 {
+
+    public Ability obstacleType;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             print("trigger");
-            //Destroy(other.gameObject);
+            PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
+            if(playerControl.ability != obstacleType)
+            {
+                Destroy(other.gameObject);
+            }
         }
-
     }
-
 }

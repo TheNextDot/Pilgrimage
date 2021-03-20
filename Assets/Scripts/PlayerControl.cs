@@ -1,7 +1,11 @@
-using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
+public enum Ability
+{
+    Jump = 0,
+    Duck = 1,
+    Bash = 2
+}
 public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
@@ -19,28 +23,15 @@ public class PlayerControl : MonoBehaviour
     }
     Lane lane = Lane.MIDDLE;
 
-    enum Ability
-    {
-        Jump = 0,
-        Duck = 1,
-        Bash = 2
-    }
-    Ability? ability = null;
+    public Ability? ability = null;
 
-
-    // Update is called once per frame
     void Update()
     {
         movement = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0;
         Move();
-        ability = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
+        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
+        if (newAbility != null) { ability = newAbility; }
         Act();
-    }
-
-    // Used to execute the commands given in the Update function
-    void FixedUpdate()
-    {
-
     }
 
     private void Move()
@@ -70,12 +61,13 @@ public class PlayerControl : MonoBehaviour
 
         if(ability != null)
         {
-            Invoke("ResetAbility", 1);
+            Invoke("ResetAbility", abilityDuration);
         }
     }
 
     private void ResetAbility()
     {
+        ability = null;
         this.GetComponent<Animator>().SetBool("isJumping", false);
         this.GetComponent<Animator>().SetBool("isDucking", false);
         this.GetComponent<Animator>().SetBool("isBashing", false);
