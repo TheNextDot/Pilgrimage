@@ -9,7 +9,6 @@ public enum Ability
 public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
-    readonly float Y = 0.6f;
     readonly float BASE_Z = 6.5f;
     readonly float abilityDuration = 1.0f;
 
@@ -44,7 +43,7 @@ public class PlayerControl : MonoBehaviour
         {
             lane++;
         }
-        transform.position = new Vector3(X, Y, BASE_Z - ((float)lane));
+        transform.position = new Vector3(X, transform.position.y, BASE_Z - ((float)lane));
     }
 
     private void Act()
