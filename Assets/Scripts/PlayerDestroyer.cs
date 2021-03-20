@@ -11,7 +11,7 @@ public class PlayerDestroyer : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
-            if (playerControl.ability != obstacleType)
+            if (!playerControl.activeAbilities.Contains(obstacleType))
             {
                 Destroy(other.gameObject);
                 SceneManager.LoadScene(0);

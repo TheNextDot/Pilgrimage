@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Ability
@@ -12,6 +13,10 @@ public class PlayerControl : MonoBehaviour
     readonly float BASE_Z = 6.5f;
     readonly float abilityDuration = 1.0f;
 
+    public UnityEngine.UI.Image jumpImage;
+    public UnityEngine.UI.Image duckImage;
+    public UnityEngine.UI.Image bashImage;
+
     int movement;
 
 
@@ -23,20 +28,18 @@ public class PlayerControl : MonoBehaviour
     }
     Lane lane = Lane.MIDDLE;
 
-    public Ability? ability = null;
+    public HashSet<Ability> activeAbilities = new HashSet<Ability>();
 
     void Update()
     {
-        movement = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0;
         Move();
-        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
-        if (newAbility != null) { ability = newAbility; }
         Act();
     }
 
     private void Move()
     {
-        if(movement < 0 & lane != Lane.UPPER)
+        movement = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0;
+        if (movement < 0 & lane != Lane.UPPER)
         {
             lane--;
         } else if(movement > 0 & lane != Lane.LOWER)
@@ -48,28 +51,58 @@ public class PlayerControl : MonoBehaviour
 
     private void Act()
     {
-        if(ability == Ability.Jump)
+        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
+        if (newAbility == null)
         {
-            this.GetComponent<Animator>().SetBool("isJumping", true);
-        } else if (ability == Ability.Duck)
-        {
-            this.GetComponent<Animator>().SetBool("isDucking", true);
-        } else if (ability == Ability.Bash)
-        {
-            this.GetComponent<Animator>().SetBool("isBashing", true);
+            return;
         }
+        this.GetComponent<Animator>().SetBool("isJumping", false);
+        this.GetComponent<Animator>().SetBool("isDucking", false);
+        this.GetComponent<Animator>().SetBool("isBashing", false);
 
-        if(ability != null)
+        if (newAbility == Ability.Jump)
         {
-            Invoke("ResetAbility", abilityDuration);
+            if (jumpImage.fillAmount == 0)
+            {
+                this.GetComponent<Animator>().SetBool("isJumping", true);
+                jumpImage.fillAmount = 1;
+                activeAbilities.Add((Ability)newAbility);
+                Invoke("stopJumping", abilityDuration);
+            }
+        } else if (newAbility == Ability.Duck)
+        {
+            if (duckImage.fillAmount == 0)
+            {
+                this.GetComponent<Animator>().SetBool("isDucking", true);
+                duckImage.fillAmount = 1;
+                activeAbilities.Add((Ability)newAbility);
+                Invoke("stopDucking", abilityDuration);
+            }
+        } else if (newAbility == Ability.Bash)
+        {
+            if (bashImage.fillAmount == 0)
+            {
+                this.GetComponent<Animator>().SetBool("isBashing", true);
+                bashImage.fillAmount = 1;
+                activeAbilities.Add((Ability)newAbility);
+                Invoke("stopBashing", abilityDuration);
+            }
         }
     }
 
-    private void ResetAbility()
+    private void stopJumping()
     {
-        ability = null;
+        activeAbilities.Remove(Ability.Jump);
         this.GetComponent<Animator>().SetBool("isJumping", false);
+    }
+    private void stopDucking() {
+        activeAbilities.Remove(Ability.Duck);
         this.GetComponent<Animator>().SetBool("isDucking", false);
+
+    }
+    private void stopBashing()
+    {
+        activeAbilities.Remove(Ability.Bash);
         this.GetComponent<Animator>().SetBool("isBashing", false);
     }
 }
