@@ -11,13 +11,15 @@ public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
     readonly float BASE_Z = 6.5f;
-    readonly float abilityDuration = 1.0f;
+    readonly float abilityTime = .5f;
 
     public UnityEngine.UI.Image jumpImage;
     public UnityEngine.UI.Image duckImage;
     public UnityEngine.UI.Image bashImage;
 
     int movement;
+
+
 
 
     enum Lane
@@ -29,6 +31,9 @@ public class PlayerControl : MonoBehaviour
     Lane lane = Lane.MIDDLE;
 
     public HashSet<Ability> activeAbilities = new HashSet<Ability>();
+
+
+
 
     void Update()
     {
@@ -67,7 +72,8 @@ public class PlayerControl : MonoBehaviour
                 this.GetComponent<Animator>().SetBool("isJumping", true);
                 jumpImage.fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
-                Invoke("stopJumping", abilityDuration);
+                Invoke("stopJumping", abilityTime);
+
             }
         } else if (newAbility == Ability.Duck)
         {
@@ -76,7 +82,8 @@ public class PlayerControl : MonoBehaviour
                 this.GetComponent<Animator>().SetBool("isDucking", true);
                 duckImage.fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
-                Invoke("stopDucking", abilityDuration);
+                Invoke("stopDucking", abilityTime);
+
             }
         } else if (newAbility == Ability.Bash)
         {
@@ -85,7 +92,7 @@ public class PlayerControl : MonoBehaviour
                 this.GetComponent<Animator>().SetBool("isBashing", true);
                 bashImage.fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
-                Invoke("stopBashing", abilityDuration);
+                Invoke("stopBashing", abilityTime);
             }
         }
     }
