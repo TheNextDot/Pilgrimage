@@ -5,11 +5,6 @@ using UnityEngine;
 public class ObstacleMover : MonoBehaviour
 {
     readonly float speed = 0.1f;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     void FixedUpdate()
     {

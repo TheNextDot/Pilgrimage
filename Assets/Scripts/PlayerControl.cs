@@ -9,7 +9,7 @@ public enum Ability
 }
 public class PlayerControl : MonoBehaviour
 {
-    readonly float X = -1.5f;
+    readonly float X = -6f;
     readonly float BASE_Z = 6.5f;
     readonly float abilityTime = .5f;
 
