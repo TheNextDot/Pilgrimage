@@ -5,6 +5,7 @@ using UnityEngine;
 public class BackgroundSpawner : MonoBehaviour
 {
     [SerializeField] GameObject objectPrefab;
+    public bool Spawn = true; 
 
 
     void Start()
@@ -14,7 +15,7 @@ public class BackgroundSpawner : MonoBehaviour
 
     IEnumerator SpawnObject()
     {
-        while (true)
+        while (Spawn == true)
         {
             Instantiate(objectPrefab, transform);
             yield return new WaitForSeconds(1.2f);

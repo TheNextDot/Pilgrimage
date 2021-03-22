@@ -6,6 +6,7 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] obstaclePrefab;
     [SerializeField] float[] spawnInterval;
+    public bool Spawn = true;
 
 
      void Start()
@@ -15,7 +16,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        while (true)
+        while (Spawn ==  true)
         {
             int obstacle = Random.Range(0, 4);
             if (obstacle != 3)

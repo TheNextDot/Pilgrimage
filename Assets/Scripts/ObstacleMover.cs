@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class ObstacleMover : MonoBehaviour
 {
-    readonly float speed = 0.1f;
+    public bool canMove = true;
+    float speed = 0.1f;
 
-    void FixedUpdate()
+    void Update()
     {
-        transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+        if (canMove == true)
+            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
     }
+
+
 }
