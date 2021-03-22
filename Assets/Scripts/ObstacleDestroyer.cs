@@ -13,7 +13,7 @@ public class ObstacleDestroyer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        scoreCounter.AddScore();
         Destroy(other.gameObject);
+        if (scoreCounter != null) { scoreCounter.AddScore(); }
     }
 }
