@@ -1496,7 +1496,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6735495111901942724, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 0
+      value: 4.7421948e+10
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942724, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -1504,7 +1504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942724, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: -5.0322783e-17
+      value: -4.4460135e-35
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942724, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_BoundingSphereOverride.z
@@ -1516,15 +1516,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942725, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.32
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942725, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.22
+      value: 3.9
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942725, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.29
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 6735495111901942725, guid: 9eb85dd44102ec546affc24f12c093ba, type: 3}
       propertyPath: m_LocalRotation.w
