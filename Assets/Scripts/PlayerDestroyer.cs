@@ -57,7 +57,7 @@ public class PlayerDestroyer : MonoBehaviour
         }
 
 
-        FindObjectOfType<Animator>().SetBool("isIdle", true);
+        FindObjectOfType<Animator>().SetBool("isRunning", true);
         
 
         //Reload game after 5 seconds
