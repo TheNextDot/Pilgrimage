@@ -10,6 +10,11 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return)) { LoadGame(); }
+    }
+
     public void QuitGame()
     {
         QuitGame();
