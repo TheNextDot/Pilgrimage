@@ -5,12 +5,12 @@ using UnityEngine;
 public class ObstacleMover : MonoBehaviour
 {
     public bool canMove = true;
-    float speed = 0.1f;
+    float speed = 5f;
 
     void Update()
     {
         if (canMove == true)
-            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x - (speed * Time.deltaTime), transform.position.y, transform.position.z);
     }
 
 
