@@ -10,14 +10,14 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] PlayerDestroyer[] obstaclePrefab;
     public bool Spawn = true;
     public float spawnDelay = 1.0f;
-    public int maxDepth = 2;
+    public int maxDepth = 4;
     [SerializeField] PlayerControl playerControl;
     public CameraShake cam;  // Passed to obstacles
 
-    private readonly float COOLDOWN_AFTER_USE = 2.0f;
+    private readonly float COOLDOWN_AFTER_USE = 4.0f;  // TODO: define globally so you don't need to update this and the cooldown images
     private readonly float LANE_WIDTH = 1.0f;
 
-    private Ability[][] existingObstacles = new Ability[3][];
+    private Ability[][] existingObstacles;
 
     private class AbilityTree
     {
@@ -42,9 +42,10 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void InitializeObstacleArray()
     {
-        for (int i=0; i<=2; i++)
+        existingObstacles = new Ability[maxDepth][];
+        for (int i=0; i<maxDepth; i++)
         {
-            existingObstacles[i] = new Ability[this.maxDepth];
+            existingObstacles[i] = new Ability[3];
         }
     }
 
@@ -58,6 +59,7 @@ public class ObstacleSpawner : MonoBehaviour
             Ability[] obstaclesToGenerate = GenerateObstacles(obstacleToGenerate);
             AddObstacles(obstaclesToGenerate);
             SpawnObstacles(obstaclesToGenerate);
+            Debug.Log("Path: " + string.Join(", ", pathToGenerate.ToString()));
             yield return new WaitForSeconds(1.0f);
         }
     }
@@ -96,7 +98,8 @@ public class ObstacleSpawner : MonoBehaviour
         abilities.Add(guaranteedObstacle);
         abilities.Add(RandomObstacle());
         abilities.Add(RandomObstacle());
-        return abilities.OrderBy(a=>UnityEngine.Random.value).ToArray();  // Shuffle to place guaranteedObstacle in random lane
+        return abilities.ToArray();
+        return abilities.OrderBy(a => UnityEngine.Random.value).ToArray();  // Shuffle to place guaranteedObstacle in random lane
     }
 
     private Ability RandomObstacle()
@@ -108,6 +111,11 @@ public class ObstacleSpawner : MonoBehaviour
     private Ability[] PathToRandomLeaf(AbilityTree possiblePaths)
     {
         List<AbilityTree> leafs = GetLeafs(possiblePaths);
+        leafs = leafs.Where(l => l.depth == maxDepth).ToList();
+        if (leafs.Count() == 0)  // No paths: player will die
+        {
+            return new Ability[] { Ability.NoAbility };
+        }
         AbilityTree leaf = leafs[UnityEngine.Random.Range(0, leafs.Count())];
 
         List<AbilityTree> path = new List<AbilityTree>();
@@ -123,7 +131,6 @@ public class ObstacleSpawner : MonoBehaviour
             path.Add(parent);
             parent = parent.parent;
         }
-        path.Reverse();
         return path.Select(at => at.ability).ToArray();
     }
 
@@ -153,7 +160,7 @@ public class ObstacleSpawner : MonoBehaviour
         foreach (Ability availableAbility in availableAbilities)
         {
             Dictionary<Ability, float> newCooldowns = cooldowns.Select(kvp => new KeyValuePair<Ability, float>(kvp.Key, kvp.Value - 1.0f)).ToDictionary(x => x.Key, x => x.Value); ;
-            newCooldowns[availableAbility] = COOLDOWN_AFTER_USE;
+            newCooldowns[availableAbility] = availableAbility == Ability.NoAbility? 0 : COOLDOWN_AFTER_USE;
             possiblePaths.children.Add(CalculatePossiblePathsAfterAbility(availableAbility, cooldowns, depth+1, possiblePaths));
         };
         return possiblePaths;
