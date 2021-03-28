@@ -14,6 +14,6 @@ public class ObstacleDestroyer : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(other.gameObject);
-        if (scoreCounter != null) { scoreCounter.AddScore(); }
+        if (scoreCounter != null && other.gameObject.tag != "Pillar") { scoreCounter.AddScore(); }
     }
 }
