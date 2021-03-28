@@ -7,7 +7,7 @@ public class PlayerDestroyer : MonoBehaviour
     public Ability obstacleType;
     public CameraShake cam;
 
-    [SerializeField] ParticleSystem deathFX;
+    [SerializeField] GameObject deathFX;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,11 +16,10 @@ public class PlayerDestroyer : MonoBehaviour
             PlayerControl playerControl = other.gameObject.GetComponent<PlayerControl>();
             if (!playerControl.activeAbilities.Contains(obstacleType))
             {
-                Instantiate(deathFX, gameObject.transform);
-                deathFX.Play();
-                Invoke("LoadScene", 2f);
+                Invoke("LoadScene", 1f);
+                deathFX = Instantiate(deathFX, gameObject.transform) as GameObject;
+                deathFX.GetComponent<ParticleSystem>().Play();
                 Destroy(other.gameObject);
-
             }
             else
             {

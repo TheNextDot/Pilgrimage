@@ -3,7 +3,9 @@ guid: 3b8769b5f387cfb40ba4c7e840dec47b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - deathFX: {fileID: 4045848094576850746, guid: 7efccab06561b1d4a8988ad60075728b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
