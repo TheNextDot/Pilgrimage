@@ -103,7 +103,7 @@ public class ObstacleSpawner : MonoBehaviour
 
     private Ability RandomObstacle()
     {
-        int random = UnityEngine.Random.Range(0, 4);
+        int random = UnityEngine.Random.Range(1, 4);
         return (Ability)Enum.GetValues(typeof(Ability)).GetValue(random);
     }
 
