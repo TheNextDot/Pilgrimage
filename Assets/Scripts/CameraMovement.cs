@@ -13,12 +13,13 @@ public class CameraMovement : MonoBehaviour
         { new Tuple<Vector3, Quaternion>(new Vector3(8f, 3, -4.5f), Quaternion.Euler(15, 0, 0)) },
     };
     public float moveDelay = 1.0f;
-    private int position = 0;
+    public float moveDuration = 3.0f;
+    public int position = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        Move(position);
+        StartCoroutine(Move(position));
         StartCoroutine(MoveToNextPosition());
     }
 
@@ -27,7 +28,7 @@ public class CameraMovement : MonoBehaviour
         while (position < transforms.Count-1)
         {
             yield return new WaitForSeconds(moveDelay);
-            Move(this.position+1);
+            StartCoroutine(Move(this.position+1));
         }
     }
 
@@ -37,9 +38,17 @@ public class CameraMovement : MonoBehaviour
         
     }
 
-    void Move(int position)
+    IEnumerator Move(int position)
     {
         this.position = position;
+        Vector3 oldPosition = gameObject.transform.position;
+        Quaternion oldRotation = gameObject.transform.rotation;
+        for (float t = 0f; t < moveDuration; t += Time.deltaTime)
+        {
+            gameObject.transform.position = Vector3.Lerp(oldPosition, transforms[position].Item1, t/moveDuration);
+            gameObject.transform.rotation = Quaternion.Slerp(oldRotation, transforms[position].Item2, t/moveDuration);
+            yield return 0;
+        }
         gameObject.transform.position = transforms[position].Item1;
         gameObject.transform.rotation = transforms[position].Item2;
         gameObject.GetComponent<CameraShake>().OnEnable();

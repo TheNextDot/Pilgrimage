@@ -472,7 +472,7 @@ MonoBehaviour:
   - {fileID: 1551667674588227477, guid: cd3d9582942a8b94baafae45136e72db, type: 3}
   Spawn: 1
   spawnDelay: 1
-  maxDepth: 2
+  maxDepth: 4
   playerControl: {fileID: 1284931436}
   cam: {fileID: 1537238624}
 --- !u!4 &1039905028
@@ -777,6 +777,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDelay: 4
+  moveDuration: 3
+  position: 0
 --- !u!4 &1537238623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8651878198899007638, guid: 5e04461da80838546abd63c2d7f0e317, type: 3}
