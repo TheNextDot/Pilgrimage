@@ -14,7 +14,6 @@ public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
     readonly float BASE_Z = 4.5f;
-    readonly float abilityTime = 0.8f;
 
     public UnityEngine.UI.Image jumpAbilityImage;
     public UnityEngine.UI.Image duckAbilityImage;
