@@ -7,16 +7,17 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject[] obstaclePrefab;
+    [SerializeField] PlayerDestroyer[] obstaclePrefab;
     public bool Spawn = true;
     public float spawnDelay = 1.0f;
     public int maxDepth = 2;
     [SerializeField] PlayerControl playerControl;
+    public CameraShake cam;  // Passed to obstacles
 
     private readonly float COOLDOWN_AFTER_USE = 2.0f;
     private readonly float LANE_WIDTH = 1.0f;
 
-    private Ability[][] existingObstacles;
+    private Ability[][] existingObstacles = new Ability[3][];
 
     private class AbilityTree
     {
@@ -41,7 +42,6 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void InitializeObstacleArray()
     {
-        existingObstacles = new Ability[3][];
         for (int i=0; i<=2; i++)
         {
             existingObstacles[i] = new Ability[this.maxDepth];
@@ -69,12 +69,13 @@ public class ObstacleSpawner : MonoBehaviour
         {
             if (obstacleType != Ability.NoAbility)
             {
-                GameObject prefab = obstaclePrefab[(int)obstacleType - 1];
+                PlayerDestroyer prefab = obstaclePrefab[(int)obstacleType - 1];
                 Vector3 position = new Vector3(
                     transform.position.x + prefab.transform.position.x, 
                     transform.position.y + prefab.transform.position.y, 
                     transform.position.z + prefab.transform.position.z + lane * LANE_WIDTH);
-                GameObject newObject = Instantiate(prefab, position, prefab.transform.rotation);  // Obstacles start at 1 (0 is for NoAbility)
+                PlayerDestroyer newObject = Instantiate(prefab, position, prefab.transform.rotation);  // Obstacles start at 1 (0 is for NoAbility)
+                newObject.cam = cam;
             }
             lane++;
         }
@@ -111,7 +112,7 @@ public class ObstacleSpawner : MonoBehaviour
 
         List<AbilityTree> path = new List<AbilityTree>();
         path.Add(leaf);
-        AbilityTree parent = leaf.parent;
+        AbilityTree? parent = leaf.parent;
         if (parent == null)  // No paths: player will die
         {
             return new Ability[] { Ability.NoAbility };

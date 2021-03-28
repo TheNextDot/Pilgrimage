@@ -5,6 +5,7 @@ public class PlayerDestroyer : MonoBehaviour
 {
 
     public Ability obstacleType;
+    public CameraShake cam;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,8 +22,9 @@ public class PlayerDestroyer : MonoBehaviour
                 {
                     this.GetComponent<ParticleSystem>().Play();
                     this.GetComponent<MeshRenderer>().enabled = false;
+                    cam.shakeDuration = 0.5f;
                 }
-  
+
             }
         }
     }
