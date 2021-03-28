@@ -1,96 +1,59 @@
 #nullable enable
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] PlayerDestroyer[] obstaclePrefab;
+    [SerializeField] Obstacle[] obstaclePrefab;
     public bool Spawn = true;
-    public float spawnDelay = 1.0f;
-    public int maxDepth = 2;
+    public int maxDepth = 1;
     [SerializeField] PlayerControl playerControl;
+    [SerializeField] ObstacleTracker obstacleTracker;
     public CameraShake cam;  // Passed to obstacles
 
-    private readonly float COOLDOWN_AFTER_USE = 4.0f;  // TODO: define globally so you don't need to update this and the cooldown images
+    private readonly int COOLDOWN_AFTER_USE = 4;  // TODO: define globally so you don't need to update this and the cooldown images
     private readonly float LANE_WIDTH = 1.0f;
 
-    private Ability[][] existingObstacles;
     private List<AbilityTree> historicPossiblePaths = new List<AbilityTree>();
     private List<Ability[]> historicPaths = new List<Ability[]>();
 
     private class AbilityTree
     {
         public Ability ability;
-        public Dictionary<Ability, float> cooldowns;
+        public Dictionary<Ability, int> cooldowns;
         public int depth;
         public List<AbilityTree> children = new List<AbilityTree>();
         public AbilityTree? parent;
 
-        public AbilityTree(Ability ability = Ability.NoAbility, int depth = 0, AbilityTree? parent = null, Dictionary<Ability, float> cooldowns = null)
+        public AbilityTree(Ability ability = Ability.NoAbility, int depth = 0, AbilityTree? parent = null, Dictionary<Ability, int> cooldowns = null)
         {
             this.ability = ability;
             this.depth = depth;
             this.parent = parent;
-            if (cooldowns == null) { cooldowns = new Dictionary<Ability, float>(); }
+            if (cooldowns == null) { cooldowns = new Dictionary<Ability, int>(); }
             this.cooldowns = cooldowns;
-        }
-    }
-
-     void Start()
-    {
-        InitializeObstacleArray();
-        StartCoroutine(SpawnObstacles());
-    }
-
-    private void InitializeObstacleArray()
-    {
-        existingObstacles = new Ability[maxDepth][];
-        for (int i=0; i<maxDepth; i++)
-        {
-            existingObstacles[i] = new Ability[3];
         }
     }
 
     public void UpdateMaxDepth(int newDepth)
     {
-        if (newDepth < maxDepth)
-        {
-            throw new NotImplementedException("Can only increase difficulty for now");
-        }
-        int oldDepth = maxDepth;
-        maxDepth = newDepth;
-        Ability[][] oldExistingObstacles = existingObstacles;
-        existingObstacles = new Ability[maxDepth][];
-        int i = 0;
-        for (; i < oldDepth; i++)
-        {
-            existingObstacles[i] = oldExistingObstacles[i];
-        }
-        for (; i < newDepth; i++)
-        {
-            existingObstacles[i] = new Ability[3];
-        }
+        maxDepth = newDepth;  // TODO: make setter
     }
 
-    IEnumerator SpawnObstacles()
+    public void SpawnObstacles()
     {
-        while (true)
-        {
-            AbilityTree possiblePaths = CalculatePossiblePaths();
-            Ability[] pathToGenerate = PathToRandomLeaf(possiblePaths);
-            Ability obstacleToGenerate = pathToGenerate.Last();
-            Ability[] obstaclesToGenerate = GenerateObstacles(obstacleToGenerate);
-            AddObstacles(obstaclesToGenerate);
-            SpawnObstacles(obstaclesToGenerate);
-            CheckPathIsWrong(pathToGenerate);
-            Debug.Log(string.Join(", ", pathToGenerate));
-            historicPossiblePaths.Add(possiblePaths);
-            historicPaths.Add(pathToGenerate);
-            yield return new WaitForSeconds(1.0f);
-        }
+        AbilityTree possiblePaths = CalculatePossiblePaths();
+        Ability[] pathToGenerate = PathToRandomLeaf(possiblePaths);
+        Ability obstacleToGenerate = pathToGenerate.Last();
+        Ability[] obstaclesToGenerate = GenerateObstacles(obstacleToGenerate);
+        AddObstacles(obstaclesToGenerate);
+        SpawnObstacles(obstaclesToGenerate);
+        CheckPathIsWrong(pathToGenerate);
+        Debug.Log(string.Join(", ", pathToGenerate));
+        historicPossiblePaths.Add(possiblePaths);
+        historicPaths.Add(pathToGenerate);
     }
 
     private void CheckPathIsWrong(Ability[] pathToGenerate)
@@ -106,25 +69,33 @@ public class ObstacleSpawner : MonoBehaviour
 
     private void SpawnObstacles(Ability[] obstaclesToGenerate)
     {
+        List<Obstacle?> obstacles = new List<Obstacle>();
         int lane = -1;  // The ObstacleSpawner is located in the center, so we spawn at relative lanes -1, 0 and 1
         foreach (Ability obstacleType in obstaclesToGenerate)
         {
             if (obstacleType != Ability.NoAbility)
             {
-                PlayerDestroyer prefab = obstaclePrefab[(int)obstacleType - 1];
+                Obstacle prefab = obstaclePrefab[(int)obstacleType - 1];
                 Vector3 position = new Vector3(
                     transform.position.x + prefab.transform.position.x, 
                     transform.position.y + prefab.transform.position.y, 
                     transform.position.z + prefab.transform.position.z + lane * LANE_WIDTH);
-                PlayerDestroyer newObject = Instantiate(prefab, position, prefab.transform.rotation);  // Obstacles start at 1 (0 is for NoAbility)
-                newObject.cam = cam;
+                Obstacle obstacle = Instantiate(prefab, position, prefab.transform.rotation);  // Obstacles start at 1 (0 is for NoAbility)
+                obstacle.cam = cam;
+                obstacle.column = maxDepth;
+                obstacles.Add(obstacle);
+            } else
+            {
+                obstacles.Add(null);
             }
             lane++;
         }
+        obstacleTracker.SpawnObstacles(obstacles.ToArray());
     }
 
     private void AddObstacles(Ability[] obstaclesToGenerate)
     {
+        Ability[][] existingObstacles = obstacleTracker.GetObstacleTypes();
         for(int i = 0; i< existingObstacles.Count()-1; i++)
         {
             existingObstacles[i] = existingObstacles[i + 1];
@@ -183,11 +154,11 @@ public class ObstacleSpawner : MonoBehaviour
 
     private AbilityTree CalculatePossiblePaths()
     {
-        Dictionary<Ability, float> cooldowns = GetCooldowns();
+        Dictionary<Ability, int> cooldowns = GetCooldowns();
         return CalculatePossiblePathsAfterAbility(Ability.NoAbility, cooldowns, 0, null);
     }
 
-    private AbilityTree CalculatePossiblePathsAfterAbility(Ability ability, Dictionary<Ability, float> cooldowns, int depth, AbilityTree? parent)
+    private AbilityTree CalculatePossiblePathsAfterAbility(Ability ability, Dictionary<Ability, int> cooldowns, int depth, AbilityTree? parent)
     {
         AbilityTree possiblePaths = new AbilityTree(ability, depth, parent, cooldowns);
         if (depth >= maxDepth) { return possiblePaths; }
@@ -195,7 +166,7 @@ public class ObstacleSpawner : MonoBehaviour
         availableAbilities = FilterOnExistingObstacles(availableAbilities, depth);
         foreach (Ability availableAbility in availableAbilities)
         {
-            Dictionary<Ability, float> newCooldowns = cooldowns.Select(kvp => new KeyValuePair<Ability, float>(kvp.Key, kvp.Value - 1.0f)).ToDictionary(x => x.Key, x => x.Value);
+            Dictionary<Ability, int> newCooldowns = cooldowns.Select(kvp => new KeyValuePair<Ability, int>(kvp.Key, kvp.Value - 1)).ToDictionary(x => x.Key, x => x.Value);
             newCooldowns[availableAbility] = availableAbility == Ability.NoAbility? 0 : COOLDOWN_AFTER_USE;
             possiblePaths.children.Add(CalculatePossiblePathsAfterAbility(availableAbility, newCooldowns, depth+1, possiblePaths));
         };
@@ -204,32 +175,33 @@ public class ObstacleSpawner : MonoBehaviour
 
     private Ability[] FilterOnExistingObstacles(Ability[] availableAbilities, int depth)
     {
-        if (depth < this.existingObstacles.Count())
+        Ability[][] existingObstacles = obstacleTracker.GetObstacleTypes();
+        if (depth < existingObstacles.Count())
         {
-            return this.existingObstacles[depth].Intersect(availableAbilities).ToArray();
+            return existingObstacles[depth].Intersect(availableAbilities).ToArray();
         }
-        else if (depth == this.existingObstacles.Count())  // No obstacles exist on the level we want to spawn, so all available actions are allowed
+        else if (depth == existingObstacles.Count())  // No obstacles exist on the level we want to spawn, so all available actions are allowed
         {
             return availableAbilities;
         }
         throw new Exception("Went too deep");
     }
 
-    private Ability[] GetAvailableAbilities(Dictionary<Ability, float> cooldowns)
+    private Ability[] GetAvailableAbilities(Dictionary<Ability, int> cooldowns)
     {
-        List<Ability> abilities = cooldowns.Where(kvp => kvp.Value <= 0).Select(kvp => kvp.Key).ToList<Ability>();
+        List<Ability> abilities = cooldowns.Where(kvp => kvp.Value <= 0).Select(kvp => kvp.Key).ToList();
         abilities.Add(Ability.NoAbility);  // Not doing anything has no cooldown
         return abilities.ToArray();
     }
 
-    private Dictionary<Ability, float> GetCooldowns()
+    private Dictionary<Ability, int> GetCooldowns()
     {
-        Dictionary<Ability, float> cooldowns = new Dictionary<Ability, float>();
+        Dictionary<Ability, int> cooldowns = new Dictionary<Ability, int>();
         foreach (Ability ability in Enum.GetValues(typeof(Ability)))
         {
             if (ability != Ability.NoAbility)
             {
-                cooldowns.Add(ability, playerControl.abilityImages[ability].fillAmount * COOLDOWN_AFTER_USE);
+                cooldowns.Add(ability, (int)playerControl.abilityImages[ability].fillAmount * COOLDOWN_AFTER_USE);
             }
         }
         return cooldowns;

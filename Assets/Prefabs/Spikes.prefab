@@ -3201,7 +3201,6 @@ GameObject:
   - component: {fileID: 4868832703677397688}
   - component: {fileID: 1763114221119542807}
   - component: {fileID: 4665212250399678534}
-  - component: {fileID: 7507401760244807994}
   - component: {fileID: 3347761868478940043}
   m_Layer: 0
   m_Name: Spikes
@@ -3303,19 +3302,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7507401760244807994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3633200742428894182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1978d20ba7d5f4ebbf9420fe4e1714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canMove: 1
 --- !u!114 &3347761868478940043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3331,6 +3317,8 @@ MonoBehaviour:
   obstacleType: 1
   cam: {fileID: 0}
   deathFX: {fileID: 4045848094576850746, guid: 7efccab06561b1d4a8988ad60075728b, type: 3}
+  column: 0
+  positionDelta: 3.8
 --- !u!1 &3726757826958937882
 GameObject:
   m_ObjectHideFlags: 0
