@@ -98,13 +98,12 @@ public class ObstacleSpawner : MonoBehaviour
         abilities.Add(guaranteedObstacle);
         abilities.Add(RandomObstacle());
         abilities.Add(RandomObstacle());
-        return abilities.ToArray();
         return abilities.OrderBy(a => UnityEngine.Random.value).ToArray();  // Shuffle to place guaranteedObstacle in random lane
     }
 
     private Ability RandomObstacle()
     {
-        int random = UnityEngine.Random.Range(0, 4);
+        int random = UnityEngine.Random.Range(1, 4);
         return (Ability)Enum.GetValues(typeof(Ability)).GetValue(random);
     }
 
