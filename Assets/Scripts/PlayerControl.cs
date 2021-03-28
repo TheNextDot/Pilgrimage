@@ -3,24 +3,23 @@ using UnityEngine;
 
 public enum Ability
 {
-    Jump = 0,
-    Duck = 1,
-    Bash = 2
+    Jump = 1,
+    Duck = 2,
+    Bash = 3,
+    NoAbility = 0
 }
 public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
     readonly float BASE_Z = 6.5f;
-    readonly float abilityTime = .7f;
+    readonly float abilityTime = 0.8f;
 
-    public UnityEngine.UI.Image jumpImage;
-    public UnityEngine.UI.Image duckImage;
-    public UnityEngine.UI.Image bashImage;
+    public UnityEngine.UI.Image jumpAbilityImage;
+    public UnityEngine.UI.Image duckAbilityImage;
+    public UnityEngine.UI.Image bashAbilityImage;
+    public Dictionary<Ability, UnityEngine.UI.Image> abilityImages;
 
     int movement;
-
-
-
 
     enum Lane
     {
@@ -31,9 +30,13 @@ public class PlayerControl : MonoBehaviour
     Lane lane = Lane.MIDDLE;
 
     public HashSet<Ability> activeAbilities = new HashSet<Ability>();
-
-
-
+    void Awake()
+    {
+        abilityImages = new Dictionary<Ability, UnityEngine.UI.Image>();
+        abilityImages.Add(Ability.Jump, jumpAbilityImage);
+        abilityImages.Add(Ability.Duck, duckAbilityImage);
+        abilityImages.Add(Ability.Bash, bashAbilityImage);
+    }
 
     void Update()
     {
@@ -67,30 +70,30 @@ public class PlayerControl : MonoBehaviour
 
         if (newAbility == Ability.Jump)
         {
-            if (jumpImage.fillAmount == 0)
+            if (abilityImages[Ability.Jump].fillAmount == 0)
             {
                 this.GetComponent<Animator>().SetBool("isJumping", true);
-                jumpImage.fillAmount = 1;
+                abilityImages[Ability.Jump].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopJumping", abilityTime);
 
             }
         } else if (newAbility == Ability.Duck)
         {
-            if (duckImage.fillAmount == 0)
+            if (abilityImages[Ability.Duck].fillAmount == 0)
             {
                 this.GetComponent<Animator>().SetBool("isDucking", true);
-                duckImage.fillAmount = 1;
+                abilityImages[Ability.Duck].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopDucking", abilityTime);
 
             }
         } else if (newAbility == Ability.Bash)
         {
-            if (bashImage.fillAmount == 0)
+            if (abilityImages[Ability.Bash].fillAmount == 0)
             {
                 this.GetComponent<Animator>().SetBool("isBashing", true);
-                bashImage.fillAmount = 1;
+                abilityImages[Ability.Bash].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopBashing", abilityTime);
             }

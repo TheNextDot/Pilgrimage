@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 2225810648671107871}
   - component: {fileID: 2144464406007659289}
   m_Layer: 0
-  m_Name: Obstacle A
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8769b5f387cfb40ba4c7e840dec47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleType: 2
+  obstacleType: 3
   deathFX: {fileID: 5457833325752858440}
 --- !u!198 &2225810648671107871
 ParticleSystem:
