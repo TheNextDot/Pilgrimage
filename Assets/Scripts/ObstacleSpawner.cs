@@ -10,7 +10,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] PlayerDestroyer[] obstaclePrefab;
     public bool Spawn = true;
     public float spawnDelay = 1.0f;
-    public int maxDepth = 4;
+    public int maxDepth = 2;
     [SerializeField] PlayerControl playerControl;
     public CameraShake cam;  // Passed to obstacles
 
@@ -18,19 +18,24 @@ public class ObstacleSpawner : MonoBehaviour
     private readonly float LANE_WIDTH = 1.0f;
 
     private Ability[][] existingObstacles;
+    private List<AbilityTree> historicPossiblePaths = new List<AbilityTree>();
+    private List<Ability[]> historicPaths = new List<Ability[]>();
 
     private class AbilityTree
     {
         public Ability ability;
+        public Dictionary<Ability, float> cooldowns;
         public int depth;
         public List<AbilityTree> children = new List<AbilityTree>();
         public AbilityTree? parent;
 
-        public AbilityTree(Ability ability = Ability.NoAbility, int depth = 0, AbilityTree? parent=null)
+        public AbilityTree(Ability ability = Ability.NoAbility, int depth = 0, AbilityTree? parent = null, Dictionary<Ability, float> cooldowns = null)
         {
             this.ability = ability;
             this.depth = depth;
             this.parent = parent;
+            if (cooldowns == null) { cooldowns = new Dictionary<Ability, float>(); }
+            this.cooldowns = cooldowns;
         }
     }
 
@@ -49,6 +54,27 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
+    public void UpdateMaxDepth(int newDepth)
+    {
+        if (newDepth < maxDepth)
+        {
+            throw new NotImplementedException("Can only increase difficulty for now");
+        }
+        int oldDepth = maxDepth;
+        maxDepth = newDepth;
+        Ability[][] oldExistingObstacles = existingObstacles;
+        existingObstacles = new Ability[maxDepth][];
+        int i = 0;
+        for (; i < oldDepth; i++)
+        {
+            existingObstacles[i] = oldExistingObstacles[i];
+        }
+        for (; i < newDepth; i++)
+        {
+            existingObstacles[i] = new Ability[3];
+        }
+    }
+
     IEnumerator SpawnObstacles()
     {
         while (true)
@@ -59,8 +85,22 @@ public class ObstacleSpawner : MonoBehaviour
             Ability[] obstaclesToGenerate = GenerateObstacles(obstacleToGenerate);
             AddObstacles(obstaclesToGenerate);
             SpawnObstacles(obstaclesToGenerate);
-            Debug.Log("Path: " + string.Join(", ", pathToGenerate.ToString()));
+            CheckPathIsWrong(pathToGenerate);
+            Debug.Log(string.Join(", ", pathToGenerate));
+            historicPossiblePaths.Add(possiblePaths);
+            historicPaths.Add(pathToGenerate);
             yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    private void CheckPathIsWrong(Ability[] pathToGenerate)
+    {
+        foreach (Ability ability in Enum.GetValues(typeof(Ability)))
+        {
+            if (ability != Ability.NoAbility & pathToGenerate.Count(a=>a==ability)>=2)
+            {
+                Debug.Log("Something is up");
+            }
         }
     }
 
@@ -120,16 +160,13 @@ public class ObstacleSpawner : MonoBehaviour
         List<AbilityTree> path = new List<AbilityTree>();
         path.Add(leaf);
         AbilityTree? parent = leaf.parent;
-        if (parent == null)  // No paths: player will die
-        {
-            return new Ability[] { Ability.NoAbility };
-        }
 
-        while (parent.parent != null)
+        while (parent != null)
         {
             path.Add(parent);
             parent = parent.parent;
         }
+        path.Reverse();
         return path.Select(at => at.ability).ToArray();
     }
 
@@ -152,28 +189,36 @@ public class ObstacleSpawner : MonoBehaviour
 
     private AbilityTree CalculatePossiblePathsAfterAbility(Ability ability, Dictionary<Ability, float> cooldowns, int depth, AbilityTree? parent)
     {
-        AbilityTree possiblePaths = new AbilityTree(ability, depth, parent);
+        AbilityTree possiblePaths = new AbilityTree(ability, depth, parent, cooldowns);
         if (depth >= maxDepth) { return possiblePaths; }
         Ability[] availableAbilities = GetAvailableAbilities(cooldowns);
         availableAbilities = FilterOnExistingObstacles(availableAbilities, depth);
         foreach (Ability availableAbility in availableAbilities)
         {
-            Dictionary<Ability, float> newCooldowns = cooldowns.Select(kvp => new KeyValuePair<Ability, float>(kvp.Key, kvp.Value - 1.0f)).ToDictionary(x => x.Key, x => x.Value); ;
+            Dictionary<Ability, float> newCooldowns = cooldowns.Select(kvp => new KeyValuePair<Ability, float>(kvp.Key, kvp.Value - 1.0f)).ToDictionary(x => x.Key, x => x.Value);
             newCooldowns[availableAbility] = availableAbility == Ability.NoAbility? 0 : COOLDOWN_AFTER_USE;
-            possiblePaths.children.Add(CalculatePossiblePathsAfterAbility(availableAbility, cooldowns, depth+1, possiblePaths));
+            possiblePaths.children.Add(CalculatePossiblePathsAfterAbility(availableAbility, newCooldowns, depth+1, possiblePaths));
         };
         return possiblePaths;
     }
 
     private Ability[] FilterOnExistingObstacles(Ability[] availableAbilities, int depth)
     {
-        return this.existingObstacles[depth].Intersect(availableAbilities).ToArray();
+        if (depth < this.existingObstacles.Count())
+        {
+            return this.existingObstacles[depth].Intersect(availableAbilities).ToArray();
+        }
+        else if (depth == this.existingObstacles.Count())  // No obstacles exist on the level we want to spawn, so all available actions are allowed
+        {
+            return availableAbilities;
+        }
+        throw new Exception("Went too deep");
     }
 
     private Ability[] GetAvailableAbilities(Dictionary<Ability, float> cooldowns)
     {
         List<Ability> abilities = cooldowns.Where(kvp => kvp.Value <= 0).Select(kvp => kvp.Key).ToList<Ability>();
-        abilities.Add(Ability.NoAbility);  // No obstacle is always possible
+        abilities.Add(Ability.NoAbility);  // Not doing anything has no cooldown
         return abilities.ToArray();
     }
 
@@ -184,7 +229,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             if (ability != Ability.NoAbility)
             {
-                cooldowns.Add(ability, playerControl.abilityImages[ability].fillAmount);
+                cooldowns.Add(ability, playerControl.abilityImages[ability].fillAmount * COOLDOWN_AFTER_USE);
             }
         }
         return cooldowns;
