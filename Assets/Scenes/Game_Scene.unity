@@ -779,6 +779,7 @@ MonoBehaviour:
   moveDelay: 4
   moveDuration: 3
   position: 0
+  abilitiesCanvas: {fileID: 2711824104984426921, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
 --- !u!4 &1537238623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8651878198899007638, guid: 5e04461da80838546abd63c2d7f0e317, type: 3}
