@@ -61,7 +61,7 @@ public class CameraMovement : MonoBehaviour
         gameObject.GetComponent<CameraShake>().OnEnable();
 
         obstacleSpawner.transform.position = new Vector3(spawnerPosition[position], oldSpawnerPosition.y, oldSpawnerPosition.z);
-        obstacleSpawner.UpdateMaxDepth(position + 1);
+        obstacleSpawner.Deepen();
     }
 
 }

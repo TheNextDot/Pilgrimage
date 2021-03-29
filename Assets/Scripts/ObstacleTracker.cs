@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+#nullable enable
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +22,18 @@ public class ObstacleTracker : MonoBehaviour
     public Ability[][] GetObstacleTypes()
     {
         return obstacles.Select(l => l.Select(o => o==null?Ability.NoAbility:o.obstacleType).ToArray()).ToArray();
+    }
+
+    public void Deepen()
+    {
+        nObstacleCols++;
+        Obstacle?[][] oldObstacles = obstacles;
+        obstacles = new Obstacle?[nObstacleCols][];
+        foreach (int i in Enumerable.Range(0, nObstacleCols - 1))
+        {
+            obstacles[i] = oldObstacles[i];
+        }
+        obstacles[nObstacleCols - 1] = new Obstacle?[nObstacleRows];
     }
 
     public void SpawnObstacles(Obstacle?[] newColumn)
