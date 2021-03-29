@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,28 +13,29 @@ public enum Ability
 public class PlayerControl : MonoBehaviour
 {
     readonly float X = -1.5f;
-    readonly float BASE_Z = 6.5f;
-    readonly float abilityTime = 0.8f;
+    readonly float BASE_Z = 4.5f;
 
     public UnityEngine.UI.Image jumpAbilityImage;
     public UnityEngine.UI.Image duckAbilityImage;
     public UnityEngine.UI.Image bashAbilityImage;
     public Dictionary<Ability, UnityEngine.UI.Image> abilityImages;
+    [SerializeField] GameObject deathFX;
+    Dictionary<Ability, string> animationBoolMap = new Dictionary<Ability, string>() { { Ability.Bash, "isBashing" }, { Ability.Jump, "isJumping" }, { Ability.Duck, "isDucking" } };
 
     [SerializeField] AudioClip bash;
     [SerializeField] AudioClip jump;
     [SerializeField] AudioClip duck;
     int movement;
 
-    enum Lane
+    public enum Lane  // TODO: move somewhere common
     {
-        UPPER = 0,
+        LOWER = 0,
         MIDDLE = 1,
-        LOWER = 2
+        UPPER = 2
     }
-    Lane lane = Lane.MIDDLE;
+    public Lane lane = Lane.MIDDLE;
 
-    public HashSet<Ability> activeAbilities = new HashSet<Ability>();
+    public Ability? activeAbility = null;
     void Awake()
     {
         abilityImages = new Dictionary<Ability, UnityEngine.UI.Image>();
@@ -52,21 +55,23 @@ public class PlayerControl : MonoBehaviour
         movement = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0;
         if (movement < 0 & lane != Lane.UPPER)
         {
-            lane--;
+            lane++;
         } else if(movement > 0 & lane != Lane.LOWER)
         {
-            lane++;
+            lane--;
         }
-        transform.position = new Vector3(X, transform.position.y, BASE_Z - ((float)lane));
+        transform.position = new Vector3(X, transform.position.y, BASE_Z + ((float)lane));
     }
 
-    private void Act()
+    internal void Animate(bool passed)
     {
-        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
-        if (newAbility == null)
+        if (!passed)
         {
-            return;
+            deathFX = Instantiate(deathFX, gameObject.transform) as GameObject;
+            deathFX.GetComponent<ParticleSystem>().Play();
+            gameObject.active = false;
         }
+<<<<<<< HEAD
         this.GetComponent<Animator>().SetBool("isJumping", false);
         this.GetComponent<Animator>().SetBool("isDucking", false);
         this.GetComponent<Animator>().SetBool("isBashing", false);
@@ -84,9 +89,13 @@ public class PlayerControl : MonoBehaviour
 
             }
         } else if (newAbility == Ability.Duck)
+=======
+        else
+>>>>>>> bea6f2664eaf292f7857fdc5df454a0e467c9f25
         {
-            if (abilityImages[Ability.Duck].fillAmount == 0)
+            if (activeAbility != null)
             {
+<<<<<<< HEAD
                 this.GetComponent<Animator>().SetBool("isDucking", true);
                 abilityImages[Ability.Duck].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
@@ -103,23 +112,34 @@ public class PlayerControl : MonoBehaviour
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopBashing", abilityTime);
                 GetComponent<AudioSource>().PlayOneShot(bash);
+=======
+                abilityImages[(Ability)activeAbility].fillAmount = 1;
+                this.GetComponent<Animator>().SetBool(animationBoolMap[(Ability)activeAbility], true);
+                StartCoroutine(DelayedStopAnimation());
+                activeAbility = null;
+>>>>>>> bea6f2664eaf292f7857fdc5df454a0e467c9f25
             }
         }
     }
 
-    private void stopJumping()
+    private void Act()
     {
-        activeAbilities.Remove(Ability.Jump);
-        this.GetComponent<Animator>().SetBool("isJumping", false);
+        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
+        if (newAbility == null)
+        {
+            return;
+        }
+        if (abilityImages[(Ability)newAbility].fillAmount == 0)
+        {
+            activeAbility = newAbility;
+        }
     }
-    private void stopDucking() {
-        activeAbilities.Remove(Ability.Duck);
-        this.GetComponent<Animator>().SetBool("isDucking", false);
 
-    }
-    private void stopBashing()
+    IEnumerator DelayedStopAnimation()
     {
-        activeAbilities.Remove(Ability.Bash);
+        yield return new WaitForSeconds(0.5f);
         this.GetComponent<Animator>().SetBool("isBashing", false);
+        this.GetComponent<Animator>().SetBool("isDucking", false);
+        this.GetComponent<Animator>().SetBool("isJumping", false);
     }
 }
