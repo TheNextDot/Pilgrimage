@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Ability
 {
@@ -71,13 +72,24 @@ public class PlayerControl : MonoBehaviour
         transform.position = new Vector3(X, transform.position.y, BASE_Z + ((float)lane));
     }
 
+
     internal void Animate(bool passed)
     {
         if (!passed)
         {
-            deathFX = Instantiate(deathFX, gameObject.transform) as GameObject;
+            deathFX = Instantiate(deathFX, transform.position, transform.rotation);
             deathFX.GetComponent<ParticleSystem>().Play();
-            gameObject.active = false;
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (activeAbility != null)
+            {
+                abilityImages[(Ability)activeAbility].fillAmount = 1;
+                this.GetComponent<Animator>().SetBool(animationBoolMap[(Ability)activeAbility], true);
+                StartCoroutine(DelayedStopAnimation());
+                activeAbility = null;
+            }
         }
     }
 
