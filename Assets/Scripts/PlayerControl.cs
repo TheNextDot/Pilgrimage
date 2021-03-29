@@ -116,5 +116,7 @@ public class PlayerControl : MonoBehaviour
         this.GetComponent<Animator>().SetBool("isBashing", false);
         this.GetComponent<Animator>().SetBool("isDucking", false);
         this.GetComponent<Animator>().SetBool("isJumping", false);
+        yield return new WaitForSeconds(0.3f);
+        transform.position = new Vector3(transform.position.x, 0.57f, transform.position.z);  // Jumping changes y, reset.
     }
 }
