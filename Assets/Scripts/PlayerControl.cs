@@ -25,6 +25,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] AudioClip bash;
     [SerializeField] AudioClip jump;
     [SerializeField] AudioClip duck;
+
+    Dictionary<Ability, AudioClip> abilityFX;
+
     int movement;
 
     public enum Lane  // TODO: move somewhere common
@@ -42,6 +45,11 @@ public class PlayerControl : MonoBehaviour
         abilityImages.Add(Ability.Jump, jumpAbilityImage);
         abilityImages.Add(Ability.Duck, duckAbilityImage);
         abilityImages.Add(Ability.Bash, bashAbilityImage);
+
+        abilityFX = new Dictionary<Ability, AudioClip>();
+        abilityFX.Add(Ability.Jump, jump);
+        abilityFX.Add(Ability.Bash, bash);
+        abilityFX.Add(Ability.Duck, duck);
     }
 
     void Update()
@@ -71,55 +79,6 @@ public class PlayerControl : MonoBehaviour
             deathFX.GetComponent<ParticleSystem>().Play();
             gameObject.active = false;
         }
-<<<<<<< HEAD
-        this.GetComponent<Animator>().SetBool("isJumping", false);
-        this.GetComponent<Animator>().SetBool("isDucking", false);
-        this.GetComponent<Animator>().SetBool("isBashing", false);
-
-        if (newAbility == Ability.Jump)
-        {
-            if (abilityImages[Ability.Jump].fillAmount == 0)
-            {
-                this.GetComponent<Animator>().SetBool("isJumping", true);
-                abilityImages[Ability.Jump].fillAmount = 1;
-                activeAbilities.Add((Ability)newAbility);
-                Invoke("stopJumping", abilityTime);
-                GetComponent<AudioSource>().PlayOneShot(jump);
-
-
-            }
-        } else if (newAbility == Ability.Duck)
-=======
-        else
->>>>>>> bea6f2664eaf292f7857fdc5df454a0e467c9f25
-        {
-            if (activeAbility != null)
-            {
-<<<<<<< HEAD
-                this.GetComponent<Animator>().SetBool("isDucking", true);
-                abilityImages[Ability.Duck].fillAmount = 1;
-                activeAbilities.Add((Ability)newAbility);
-                Invoke("stopDucking", abilityTime);
-                GetComponent<AudioSource>().PlayOneShot(duck);
-
-            }
-        } else if (newAbility == Ability.Bash)
-        {
-            if (abilityImages[Ability.Bash].fillAmount == 0)
-            {
-                this.GetComponent<Animator>().SetBool("isBashing", true);
-                abilityImages[Ability.Bash].fillAmount = 1;
-                activeAbilities.Add((Ability)newAbility);
-                Invoke("stopBashing", abilityTime);
-                GetComponent<AudioSource>().PlayOneShot(bash);
-=======
-                abilityImages[(Ability)activeAbility].fillAmount = 1;
-                this.GetComponent<Animator>().SetBool(animationBoolMap[(Ability)activeAbility], true);
-                StartCoroutine(DelayedStopAnimation());
-                activeAbility = null;
->>>>>>> bea6f2664eaf292f7857fdc5df454a0e467c9f25
-            }
-        }
     }
 
     private void Act()
@@ -132,6 +91,7 @@ public class PlayerControl : MonoBehaviour
         if (abilityImages[(Ability)newAbility].fillAmount == 0)
         {
             activeAbility = newAbility;
+            GetComponent<AudioSource>().PlayOneShot(abilityFX[(Ability)newAbility]);
         }
     }
 
