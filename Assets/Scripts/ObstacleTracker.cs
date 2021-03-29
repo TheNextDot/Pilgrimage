@@ -85,6 +85,8 @@ public class ObstacleTracker : MonoBehaviour
         bool passed = obstacleType == Ability.NoAbility | player.activeAbility == obstacleType;
         if (passed & obstacle != null)
         {
+            player.TriggerAbility();
+            player.Animate(passed);
             obstacle.Animate();
         }
         return passed;

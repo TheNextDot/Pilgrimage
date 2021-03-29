@@ -21,7 +21,6 @@ public class Clock : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             bool passed = ProcessCollision();
-            AnimatePlayer(passed);
             if (!passed)
             {
                 Invoke("LoadScene", 0.9f);
@@ -50,11 +49,6 @@ public class Clock : MonoBehaviour
         {
             cooldown.fillAmount = Math.Max(0, cooldown.fillAmount - 0.25f);
         }
-    }
-
-    private void AnimatePlayer(bool passed)
-    {
-        playerControl.Animate(passed);
     }
 
     private bool ProcessCollision()

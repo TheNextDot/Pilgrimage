@@ -88,11 +88,19 @@ public class PlayerControl : MonoBehaviour
         {
             if (activeAbility != null)
             {
-                abilityImages[(Ability)activeAbility].fillAmount = 1;
+                GetComponent<AudioSource>().PlayOneShot(abilityFX[(Ability)activeAbility]);
                 this.GetComponent<Animator>().SetBool(animationBoolMap[(Ability)activeAbility], true);
                 StartCoroutine(DelayedStopAnimation());
                 activeAbility = null;
             }
+        }
+    }
+
+    internal void TriggerAbility()
+    {
+        if (activeAbility != null)
+        {
+            abilityImages[(Ability)activeAbility].fillAmount = 1;
         }
     }
 
@@ -106,7 +114,6 @@ public class PlayerControl : MonoBehaviour
         if (abilityImages[(Ability)newAbility].fillAmount == 0)
         {
             activeAbility = newAbility;
-            GetComponent<AudioSource>().PlayOneShot(abilityFX[(Ability)newAbility]);
         }
     }
 
