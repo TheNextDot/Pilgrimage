@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2996273, g: 0.25062415, b: 0.20409787, a: 1}
+  m_IndirectSpecularColor: {r: 0.29965606, g: 0.25063896, b: 0.20415309, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -704,22 +704,6 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1404914813481605477, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: deathFX
-      value: 
-      objectReference: {fileID: 4045848094576850746, guid: 7efccab06561b1d4a8988ad60075728b, type: 3}
-    - target: {fileID: 1404914813481605477, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: bashImage
-      value: 
-      objectReference: {fileID: 24939485}
-    - target: {fileID: 1404914813481605477, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: duckImage
-      value: 
-      objectReference: {fileID: 352067377}
-    - target: {fileID: 1404914813481605477, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: jumpImage
-      value: 
-      objectReference: {fileID: 1801834984}
-    - target: {fileID: 1404914813481605477, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
       propertyPath: bashAbilityImage
       value: 
       objectReference: {fileID: 24939485}
@@ -731,58 +715,6 @@ PrefabInstance:
       propertyPath: jumpAbilityImage
       value: 
       objectReference: {fileID: 1801834984}
-    - target: {fileID: 4084937844044271276, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Name
-      value: Left Eye
-      objectReference: {fileID: 0}
-    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Range
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.g
-      value: 0.8467263
-      objectReference: {fileID: 0}
-    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7099340995937376635, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2e3652ee7120c33489cd2651725707a3, type: 2}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Range
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.g
-      value: 0.92332065
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_Intensity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
-      propertyPath: m_SpotAngle
-      value: 88.8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
 --- !u!114 &1284931436 stripped

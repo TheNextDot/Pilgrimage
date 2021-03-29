@@ -93,7 +93,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -2653651044934150266, guid: 871201c1d3790394a87010361f25362f, type: 3}
-  - {fileID: -1580535799172915004, guid: 871201c1d3790394a87010361f25362f, type: 3}
+  - {fileID: 2100000, guid: 2e3652ee7120c33489cd2651725707a3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -436,9 +436,12 @@ MonoBehaviour:
   jumpAbilityImage: {fileID: 0}
   duckAbilityImage: {fileID: 0}
   bashAbilityImage: {fileID: 0}
+  deathFX: {fileID: 4045848094576850746, guid: 7efccab06561b1d4a8988ad60075728b, type: 3}
   bash: {fileID: 8300000, guid: 006a48a87e695c2428314b651a90614e, type: 3}
   jump: {fileID: 8300000, guid: b45de83db5f74934f9d4499a6c2c9edd, type: 3}
   duck: {fileID: 8300000, guid: 8e26ec7cd45019a438490a7e31f6b67d, type: 3}
+  deathSFX: {fileID: 8300000, guid: 16998e4840f91ab44aaf24c6d052e352, type: 3}
+  lane: 1
 --- !u!95 &1823193827950149668
 Animator:
   serializedVersion: 3
@@ -791,9 +794,9 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
-  m_Range: 150
+  m_Color: {r: 1, g: 0.8467263, b: 0, a: 1}
+  m_Intensity: 2
+  m_Range: 10
   m_SpotAngle: 88.8
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1329,7 +1332,7 @@ GameObject:
   - component: {fileID: 6696958733036604461}
   - component: {fileID: 7673739833075777589}
   m_Layer: 0
-  m_Name: Right Eye (1)
+  m_Name: Left Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1360,9 +1363,9 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5
-  m_Range: 150
+  m_Color: {r: 1, g: 0.92332065, b: 0, a: 1}
+  m_Intensity: 2
+  m_Range: 10
   m_SpotAngle: 88.8
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
