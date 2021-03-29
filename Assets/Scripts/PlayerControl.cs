@@ -19,6 +19,9 @@ public class PlayerControl : MonoBehaviour
     public UnityEngine.UI.Image bashAbilityImage;
     public Dictionary<Ability, UnityEngine.UI.Image> abilityImages;
 
+    [SerializeField] AudioClip bash;
+    [SerializeField] AudioClip jump;
+    [SerializeField] AudioClip duck;
     int movement;
 
     enum Lane
@@ -76,6 +79,8 @@ public class PlayerControl : MonoBehaviour
                 abilityImages[Ability.Jump].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopJumping", abilityTime);
+                GetComponent<AudioSource>().PlayOneShot(jump);
+
 
             }
         } else if (newAbility == Ability.Duck)
@@ -86,6 +91,7 @@ public class PlayerControl : MonoBehaviour
                 abilityImages[Ability.Duck].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopDucking", abilityTime);
+                GetComponent<AudioSource>().PlayOneShot(duck);
 
             }
         } else if (newAbility == Ability.Bash)
@@ -96,6 +102,7 @@ public class PlayerControl : MonoBehaviour
                 abilityImages[Ability.Bash].fillAmount = 1;
                 activeAbilities.Add((Ability)newAbility);
                 Invoke("stopBashing", abilityTime);
+                GetComponent<AudioSource>().PlayOneShot(bash);
             }
         }
     }
