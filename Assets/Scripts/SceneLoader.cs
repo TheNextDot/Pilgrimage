@@ -21,7 +21,6 @@ public class SceneLoader : MonoBehaviour
         {
             GetComponent<AudioSource>().Play();
             LoadGame();
-
         }
     }
 

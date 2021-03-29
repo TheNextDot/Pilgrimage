@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 91458258}
   - component: {fileID: 91458257}
+  - component: {fileID: 91458259}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -315,10 +316,10 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 31.59216
+  m_Color: {r: 0.8301887, g: 0.6725501, b: 0.2232111, a: 1}
+  m_Intensity: 3.27
+  m_Range: 10.33
+  m_SpotAngle: 54.5
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -380,6 +381,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 37.272, y: 90, z: 90}
+--- !u!114 &91458259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91458256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0759b35e816349e419adb6b2c60e13cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1
 --- !u!43 &118178216
 Mesh:
   m_ObjectHideFlags: 0
@@ -557,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378897885251527380, guid: cd3d9582942a8b94baafae45136e72db, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.77
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 5378897885251527380, guid: cd3d9582942a8b94baafae45136e72db, type: 3}
       propertyPath: m_LocalPosition.y
@@ -962,7 +976,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322202685}
   m_LocalRotation: {x: 0.15076615, y: 9.313226e-10, z: 6.9849193e-10, w: 0.9885695}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5738, y: 2.5738, z: 2.5738}
   m_Children:
   - {fileID: 477543725}
@@ -971,7 +985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 17.343, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -335, y: -256}
+  m_AnchoredPosition: {x: -267, y: -256}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &322202687
@@ -4421,7 +4435,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391846074}
   m_LocalRotation: {x: 0.088204116, y: -0, z: 4.656613e-10, w: 0.99610245}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 2.5738, y: 2.5738, z: 2.5738}
   m_Children:
   - {fileID: 464110620}
@@ -4430,7 +4444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 10.121, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 98, y: -256}
+  m_AnchoredPosition: {x: 166, y: -256.00003}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1391846076
@@ -5063,7 +5077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b4e9276ac3b4946880f4d9798c84ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 2
 --- !u!43 &2039133871
 Mesh:
   m_ObjectHideFlags: 0
@@ -5442,7 +5455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223702, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_Text
-      value: Space invader Pac-man
+      value: Ultra-Space Sequencer
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223702, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_Color.b
@@ -5490,7 +5503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223703, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223703, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5510,11 +5523,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223703, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 909
+      value: 995
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223703, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -608
+      value: -605
       objectReference: {fileID: 0}
     - target: {fileID: 2711824104408223703, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5902,6 +5915,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio
       objectReference: {fileID: 0}
+    - target: {fileID: 6624877968534072881, guid: aa22e3e8846d0f941af497ce15e8c7dc, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 297caf759a55ac842ad2924b678a3914, type: 3}
     - target: {fileID: 6624877968534072886, guid: aa22e3e8846d0f941af497ce15e8c7dc, type: 3}
       propertyPath: m_RootOrder
       value: 13

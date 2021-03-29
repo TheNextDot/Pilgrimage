@@ -26,6 +26,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] AudioClip bash;
     [SerializeField] AudioClip jump;
     [SerializeField] AudioClip duck;
+    [SerializeField] AudioClip deathSFX;
 
     Dictionary<Ability, AudioClip> abilityFX;
 
@@ -51,6 +52,7 @@ public class PlayerControl : MonoBehaviour
         abilityFX.Add(Ability.Jump, jump);
         abilityFX.Add(Ability.Bash, bash);
         abilityFX.Add(Ability.Duck, duck);
+
     }
 
     void Update()
@@ -77,6 +79,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!passed)
         {
+            AudioSource.PlayClipAtPoint(deathSFX, transform.position);
             deathFX = Instantiate(deathFX, transform.position, transform.rotation);
             deathFX.GetComponent<ParticleSystem>().Play();
             Destroy(gameObject);

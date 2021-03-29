@@ -64,6 +64,6 @@ public class Clock : MonoBehaviour
 
     private void LoadScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
