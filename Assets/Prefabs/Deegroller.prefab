@@ -6469,7 +6469,6 @@ GameObject:
   - component: {fileID: 2999320658629084134}
   - component: {fileID: 2999320658629084135}
   - component: {fileID: 2999320658629084132}
-  - component: {fileID: -6737997543785675445}
   - component: {fileID: -916457680296591806}
   - component: {fileID: 4612149635520343428}
   m_Layer: 0
@@ -6559,19 +6558,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-6737997543785675445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2999320658629084133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1978d20ba7d5f4ebbf9420fe4e1714, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canMove: 1
 --- !u!54 &-916457680296591806
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6603,6 +6589,8 @@ MonoBehaviour:
   obstacleType: 2
   cam: {fileID: 0}
   deathFX: {fileID: 4045848094576850746, guid: 7efccab06561b1d4a8988ad60075728b, type: 3}
+  column: 0
+  positionDelta: 3.8
 --- !u!1 &4426631557391181942
 GameObject:
   m_ObjectHideFlags: 0
