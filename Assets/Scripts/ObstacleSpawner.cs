@@ -37,9 +37,10 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
-    public void UpdateMaxDepth(int newDepth)
+    public void Deepen()
     {
-        maxDepth = newDepth;  // TODO: make setter
+        maxDepth++;  // TODO: make setter
+        obstacleTracker.Deepen();
     }
 
     public void SpawnObstacles()
@@ -176,15 +177,15 @@ public class ObstacleSpawner : MonoBehaviour
     private Ability[] FilterOnExistingObstacles(Ability[] availableAbilities, int depth)
     {
         Ability[][] existingObstacles = obstacleTracker.GetObstacleTypes();
-        if (depth < existingObstacles.Count())
+        // existingObstacles[0] are currently being tackled by player so we want to find the obstacles from column 1 to end
+        if (depth + 1 < existingObstacles.Count())
         {
-            return existingObstacles[depth].Intersect(availableAbilities).ToArray();
+            return existingObstacles[depth + 1].Intersect(availableAbilities).ToArray();
         }
-        else if (depth == existingObstacles.Count())  // No obstacles exist on the level we want to spawn, so all available actions are allowed
+        else  // No obstacles exist on the level we want to spawn, so all available actions are allowed
         {
             return availableAbilities;
         }
-        throw new Exception("Went too deep");
     }
 
     private Ability[] GetAvailableAbilities(Dictionary<Ability, int> cooldowns)

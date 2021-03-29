@@ -7,7 +7,6 @@ public class BackgroundSpawner : MonoBehaviour
     [SerializeField] GameObject objectPrefab;
     public bool Spawn = true; 
 
-
     void Start()
     {
         StartCoroutine(SpawnObject());

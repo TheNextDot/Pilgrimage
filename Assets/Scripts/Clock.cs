@@ -30,7 +30,7 @@ public class Clock : MonoBehaviour
                 SpawnObstacles();
                 MoveObstacles();
                 // TODO: AddScore();
-            } 
+            }
         }
     }
 

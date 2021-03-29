@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.29965606, g: 0.25063896, b: 0.20415309, a: 1}
+  m_IndirectSpecularColor: {r: 0.2996273, g: 0.25062415, b: 0.20409787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -818,8 +818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228402dc6ed602545aaa40a9e29cb5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDelay: 2
-  moveDuration: 1
+  moveDelay: 15
+  moveDuration: 3
   position: 0
   abilitiesCanvas: {fileID: 726329108}
   obstacleSpawner: {fileID: 422829308}
