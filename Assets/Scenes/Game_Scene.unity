@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2996273, g: 0.25062415, b: 0.20409787, a: 1}
+  m_IndirectSpecularColor: {r: 0.29965606, g: 0.25063896, b: 0.20415309, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -198,6 +198,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 24939482}
   m_CullTransparentMesh: 1
+--- !u!114 &57388067 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2711824104408223696, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
+  m_PrefabInstance: {fileID: 2711824104970428653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ad2587d188d5448b7cec430b28f485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &57388068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2711824104408223702, guid: 150b204c03c21984a8ba5304b5e44670, type: 3}
+  m_PrefabInstance: {fileID: 2711824104970428653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &153790666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6579372493132748833, guid: f45f276af2f476e4cb10f7fca276a8e8, type: 3}
@@ -487,6 +509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1049214169}
   - component: {fileID: 1049214170}
+  - component: {fileID: 1049214171}
   m_Layer: 0
   m_Name: Clock
   m_TagString: Untagged
@@ -523,10 +546,24 @@ MonoBehaviour:
   obstacleTracker: {fileID: 422829310}
   obstacleSpawner: {fileID: 422829308}
   playerControl: {fileID: 1284931436}
+  scoreCounter: {fileID: 57388067}
   cooldowns:
   - {fileID: 1801834984}
   - {fileID: 352067377}
   - {fileID: 24939485}
+--- !u!114 &1049214171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049214168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ad2587d188d5448b7cec430b28f485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 57388068}
 --- !u!1 &1241584461
 GameObject:
   m_ObjectHideFlags: 0

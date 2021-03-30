@@ -8,6 +8,7 @@ public class Clock : MonoBehaviour
     [SerializeField] ObstacleTracker obstacleTracker;
     [SerializeField] ObstacleSpawner obstacleSpawner;
     [SerializeField] PlayerControl playerControl;
+    [SerializeField] ScoreCounter scoreCounter;
     [SerializeField] UnityEngine.UI.Image[] cooldowns;
 
     void Start()
@@ -28,7 +29,7 @@ public class Clock : MonoBehaviour
                 LowerCooldowns();
                 SpawnObstacles();
                 MoveObstacles();
-                // TODO: AddScore();
+                AddScore();
             }
         }
     }
@@ -59,5 +60,10 @@ public class Clock : MonoBehaviour
     private void LoadScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private void AddScore()
+    {
+        scoreCounter.AddScore();
     }
 }
