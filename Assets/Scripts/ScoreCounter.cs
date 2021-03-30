@@ -4,12 +4,15 @@ using UnityEngine.UI;
 public class ScoreCounter : MonoBehaviour
 {
     private int currentScore;
+    public int highScore = 0;
+    string highScoreKey = "HighScore";
     public Text scoreText;
 
     // Use this for initialization
     void Start()
     {
         currentScore = 0;
+        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
     }
 
     void Update()
@@ -20,6 +23,11 @@ public class ScoreCounter : MonoBehaviour
     public void AddScore()
     {
         currentScore++;
+        if (currentScore > highScore)
+        {
+            PlayerPrefs.SetInt(highScoreKey, currentScore);
+            PlayerPrefs.Save();
+        }
     }
 
 
