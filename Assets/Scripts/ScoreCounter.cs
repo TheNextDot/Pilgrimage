@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class ScoreCounter : MonoBehaviour
 {
     private int currentScore;
-    public int highScore = 0;
+    private int highScore;
     string highScoreKey = "HighScore";
     public Text scoreText;
 

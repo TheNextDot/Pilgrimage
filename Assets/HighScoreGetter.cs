@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HighScoreGetter : MonoBehaviour
 {
     public Text highScoreText;
-    public int highScore = 0;
+    private int highScore;
     string highScoreKey = "HighScore";
 
     // Start is called before the first frame update
