@@ -75,7 +75,7 @@ public class PlayerControl : MonoBehaviour
     }
 
 
-    internal void Animate(bool passed)
+    internal void Animate(bool passed, bool isObstacle)
     {
         if (!passed)
         {
@@ -84,7 +84,7 @@ public class PlayerControl : MonoBehaviour
             deathFX.GetComponent<ParticleSystem>().Play();
             Destroy(gameObject);
         }
-        else
+        else if (isObstacle)
         {
             if (activeAbility != null)
             {

@@ -86,9 +86,9 @@ public class ObstacleTracker : MonoBehaviour
         if (passed & obstacle != null)
         {
             player.TriggerAbility();
-            player.Animate(passed);
             obstacle.Animate();
         }
+        player.Animate(passed, obstacle != null);
         return passed;
     }
 }
