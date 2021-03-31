@@ -7151,7 +7151,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'High score: 00000'
+  m_Text: 'High score: 0
+
+'
 --- !u!222 &990409504
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8919,7 +8921,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-26980
+  m_Name: pb_Mesh15902
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9581,7 +9583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8002289880942069274, guid: 3ce96aeb511fccf44820b52d3f96f767, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.732
+      value: -0.76
       objectReference: {fileID: 0}
     - target: {fileID: 8002289880942069274, guid: 3ce96aeb511fccf44820b52d3f96f767, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9617,7 +9619,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8121086067498165826, guid: 3ce96aeb511fccf44820b52d3f96f767, type: 3}
       propertyPath: speed
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8121086067498165826, guid: 3ce96aeb511fccf44820b52d3f96f767, type: 3}
       propertyPath: maxDistance

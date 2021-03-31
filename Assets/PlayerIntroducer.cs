@@ -59,7 +59,7 @@ public class PlayerIntroducer : MonoBehaviour
         currentPos = transform.position;
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, upYPos, step);
-        if (transform.position.y >= -0.756)
+        if (transform.position.y >= -0.76)
         {
             moveLift = false;
         }
