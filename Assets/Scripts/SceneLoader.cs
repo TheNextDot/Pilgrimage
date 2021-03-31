@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] AudioClip startGame;
+
     public void LoadGame()
     {
         Invoke("LoadScene", 1f);
@@ -19,7 +21,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return)) 
         {
-            GetComponent<AudioSource>().Play();
+            AudioSource.PlayClipAtPoint(startGame, transform.position);
             LoadGame();
         }
     }

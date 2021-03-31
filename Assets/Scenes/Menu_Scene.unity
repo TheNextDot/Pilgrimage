@@ -1021,6 +1021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5ad39259388564d89559a1bd4c9638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame: {fileID: 8300000, guid: 1a6dbee010790444eb9edbe457022644, type: 3}
 --- !u!114 &322202688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,7 +1146,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 29
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -8655,6 +8656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5ad39259388564d89559a1bd4c9638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame: {fileID: 8300000, guid: 16998e4840f91ab44aaf24c6d052e352, type: 3}
 --- !u!82 &1391846080
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8673,7 +8675,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
