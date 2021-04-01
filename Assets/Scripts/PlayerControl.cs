@@ -88,6 +88,10 @@ public class PlayerControl : MonoBehaviour
         {
             if (activeAbility != null)
             {
+                if (activeAbility == Ability.Duck)
+                {
+                    GetComponentInChildren<ParticleSystem>().Play();
+                }
                 GetComponent<AudioSource>().PlayOneShot(abilityFX[(Ability)activeAbility]);
                 this.GetComponent<Animator>().SetBool(animationBoolMap[(Ability)activeAbility], true);
                 StartCoroutine(DelayedStopAnimation());
