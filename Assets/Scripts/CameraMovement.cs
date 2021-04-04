@@ -47,13 +47,11 @@ public class CameraMovement : MonoBehaviour
         this.position = position;
         Vector3 oldPosition = gameObject.transform.position;
         Quaternion oldRotation = gameObject.transform.rotation;
-        Vector3 oldAbilitiesPosition = abilitiesCanvas.transform.position;
         Vector3 oldSpawnerPosition = obstacleSpawner.transform.position;
         for (float t = 0f; t < moveDuration; t += Time.deltaTime)
         {
             gameObject.transform.position = Vector3.Lerp(oldPosition, transforms[position].Item1, t/moveDuration);
             gameObject.transform.rotation = Quaternion.Slerp(oldRotation, transforms[position].Item2, t/moveDuration);
-            abilitiesCanvas.transform.position = Vector3.Lerp(oldAbilitiesPosition, new Vector3(abilitiesPosition[position], oldAbilitiesPosition.y, oldAbilitiesPosition.z), t / moveDuration);
             yield return 0;
         }
         gameObject.transform.position = transforms[position].Item1;

@@ -105,7 +105,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (activeAbility != null)
         {
-            abilityImages[(Ability)activeAbility].fillAmount = 1;
+            abilityImages[(Ability)activeAbility].fillAmount = 0;
         }
     }
 
@@ -116,7 +116,7 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
-        if (abilityImages[(Ability)newAbility].fillAmount == 0)
+        if (abilityImages[(Ability)newAbility].fillAmount == 1)
         {
             activeAbility = newAbility;
         }

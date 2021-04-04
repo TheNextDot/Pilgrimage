@@ -202,7 +202,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             if (ability != Ability.NoAbility)
             {
-                cooldowns.Add(ability, (int)playerControl.abilityImages[ability].fillAmount * COOLDOWN_AFTER_USE);
+                cooldowns.Add(ability, (int)(1.0f-playerControl.abilityImages[ability].fillAmount) * COOLDOWN_AFTER_USE);
             }
         }
         return cooldowns;
