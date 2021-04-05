@@ -64,17 +64,14 @@ public class PlayerControl : MonoBehaviour
 
     private void Move()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        movement = Input.GetKeyDown(KeyCode.UpArrow) ? -1 : Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0;
+        if (movement < 0 & lane != Lane.UPPER)
         {
-            lane = Lane.UPPER;
-        } else if (Input.GetKeyDown(KeyCode.K))
+            lane++;
+        } else if(movement > 0 & lane != Lane.LOWER)
         {
-            lane = Lane.MIDDLE;
-        } else if (Input.GetKeyDown(KeyCode.M))
-        {
-            lane = Lane.LOWER;
+            lane--;
         }
-
         transform.position = new Vector3(X, transform.position.y, BASE_Z + ((float)lane));
     }
 
@@ -114,7 +111,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Act()
     {
-        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.X) ? Ability.Duck : Input.GetKeyDown(KeyCode.S) ? Ability.Bash : default(Ability?);
+        Ability? newAbility = Input.GetKeyDown(KeyCode.W) ? Ability.Jump : Input.GetKeyDown(KeyCode.S) ? Ability.Duck : Input.GetKeyDown(KeyCode.D) ? Ability.Bash : default(Ability?);
         if (newAbility == null)
         {
             return;
