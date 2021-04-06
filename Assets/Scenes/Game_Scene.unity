@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2996273, g: 0.25062415, b: 0.20409787, a: 1}
+  m_IndirectSpecularColor: {r: 0.29965606, g: 0.25063896, b: 0.20415309, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1148,6 +1148,14 @@ PrefabInstance:
       propertyPath: jumpAbilityImage
       value: 
       objectReference: {fileID: 327409095}
+    - target: {fileID: 6255823377111324042, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673739833075777589, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce8b97f221b71f04d960977b25effcdf, type: 3}
 --- !u!114 &1284931436 stripped
