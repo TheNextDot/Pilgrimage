@@ -48,11 +48,11 @@ public class Clock : MonoBehaviour
     {
         foreach(UnityEngine.UI.Image cooldown in cooldowns)
         {
-            bool wasNotFull = cooldown.fillAmount < 1;
-            cooldown.fillAmount = Math.Min(1, cooldown.fillAmount + 0.25f);
-            if (wasNotFull & cooldown.fillAmount == 1)
+            bool wasNotFull = cooldown.fillAmount > 0;
+            cooldown.fillAmount = Math.Max(0, cooldown.fillAmount - 0.25f);
+            if (wasNotFull & cooldown.fillAmount == 0)
             {
-                cooldown.GetComponentInChildren<ParticleSystem>().Play();
+                cooldown.transform.parent.gameObject.GetComponentInChildren<ParticleSystem>().Play();
             }
         }
     }
