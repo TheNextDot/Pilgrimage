@@ -53,7 +53,13 @@ public class PlayerControl : MonoBehaviour
         abilityFX.Add(Ability.Jump, jump);
         abilityFX.Add(Ability.Bash, bash);
         abilityFX.Add(Ability.Duck, duck);
+    }
 
+    private void Start()
+    {
+        bashAbilityImage.transform.Find("Border").gameObject.SetActive(false);
+        duckAbilityImage.transform.Find("Border").gameObject.SetActive(false);
+        jumpAbilityImage.transform.Find("Border").gameObject.SetActive(false);
     }
 
     void Update()
@@ -80,7 +86,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!passed)
         {
-            AudioSource.PlayClipAtPoint(deathSFX, cameraLoc.transform.position);
+            //AudioSource.PlayClipAtPoint(deathSFX, cameraLoc.transform.position);
             deathFX = Instantiate(deathFX, transform.position, transform.rotation);
             deathFX.GetComponent<ParticleSystem>().Play();
             Destroy(gameObject);
@@ -105,7 +111,8 @@ public class PlayerControl : MonoBehaviour
     {
         if (activeAbility != null)
         {
-            abilityImages[(Ability)activeAbility].fillAmount = 0;
+            abilityImages[(Ability)activeAbility].transform.Find("Border").gameObject.SetActive(false);
+            abilityImages[(Ability)activeAbility].transform.Find("Cooldown").GetComponent<UnityEngine.UI.Image>().fillAmount = 1.0f;
         }
     }
 
@@ -116,9 +123,16 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
-        if (abilityImages[(Ability)newAbility].fillAmount == 1)
+        if (abilityImages[(Ability)newAbility].transform.Find("Cooldown").GetComponent<UnityEngine.UI.Image>().fillAmount == 0)
         {
+            bashAbilityImage.transform.Find("Border").gameObject.SetActive(false);
+            duckAbilityImage.transform.Find("Border").gameObject.SetActive(false);
+            jumpAbilityImage.transform.Find("Border").gameObject.SetActive(false);
             activeAbility = newAbility;
+            abilityImages[(Ability)newAbility].transform.Find("Border").gameObject.SetActive(true);
+        } else
+        {
+            AudioSource.PlayClipAtPoint(deathSFX, cameraLoc.transform.position);
         }
     }
 
