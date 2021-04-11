@@ -7,10 +7,10 @@ public class CameraMovement : MonoBehaviour
 {
     readonly List<Tuple<Vector3, Quaternion>> transforms = new List<Tuple<Vector3, Quaternion>>()
     {
-        { new Tuple<Vector3, Quaternion>(new Vector3(1, 2, -1), Quaternion.Euler(15, 0, 0)) },
-        { new Tuple<Vector3, Quaternion>(new Vector3(2.75f, 2.3f, -2.1f), Quaternion.Euler(15, 0, 0)) },
-        { new Tuple<Vector3, Quaternion>(new Vector3(4.5f, 2.6f, -3.3f), Quaternion.Euler(15, 0, 0)) },
-        { new Tuple<Vector3, Quaternion>(new Vector3(6.25f, 3, -4.5f), Quaternion.Euler(15, 0, 0)) },
+        { new Tuple<Vector3, Quaternion>(new Vector3(1, 3.7f, -0.6f), Quaternion.Euler(15, 0, 0)) },
+        { new Tuple<Vector3, Quaternion>(new Vector3(2.75f, 4f, -2.1f), Quaternion.Euler(15, 0, 0)) },
+        { new Tuple<Vector3, Quaternion>(new Vector3(4.5f, 4.3f, -3.3f), Quaternion.Euler(15, 0, 0)) },
+        { new Tuple<Vector3, Quaternion>(new Vector3(6.25f, 4.6f, -4.5f), Quaternion.Euler(15, 0, 0)) },
     };
     readonly List<float> abilitiesPosition = new List<float>{ 960, 840, 720, 600};
     readonly List<float> spawnerPosition = new List<float> { 9, 12, 15, 18};
