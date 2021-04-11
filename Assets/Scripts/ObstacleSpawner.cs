@@ -37,6 +37,13 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
+    internal void SpawnObstacles(Ability ability)
+    {
+        Ability[] abilities = new Ability[] { ability, ability, ability };
+        AddObstacles(abilities);
+        SpawnObstacles(abilities);
+    }
+
     public void Deepen()
     {
         maxDepth++;  // TODO: make setter
@@ -49,7 +56,7 @@ public class ObstacleSpawner : MonoBehaviour
         Ability[] pathToGenerate = PathToRandomLeaf(possiblePaths);
         Ability obstacleToGenerate = pathToGenerate.Last();
         Ability[] obstaclesToGenerate = GenerateObstacles(obstacleToGenerate);
-        AddObstacles(obstaclesToGenerate);
+        //AddObstacles(obstaclesToGenerate);
         SpawnObstacles(obstaclesToGenerate);
         CheckPathIsWrong(pathToGenerate);
         Debug.Log(string.Join(", ", pathToGenerate));
@@ -202,7 +209,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             if (ability != Ability.NoAbility)
             {
-                cooldowns.Add(ability, (int)(1.0f-playerControl.abilityImages[ability].fillAmount) * COOLDOWN_AFTER_USE);
+                cooldowns.Add(ability, (int)(1.0f-playerControl.abilityImages[ability].transform.Find("Cooldown").GetComponent<UnityEngine.UI.Image>().fillAmount) * COOLDOWN_AFTER_USE);
             }
         }
         return cooldowns;
