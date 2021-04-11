@@ -14,7 +14,8 @@ public class CameraMovement : MonoBehaviour
     };
     readonly List<float> abilitiesPosition = new List<float>{ 960, 840, 720, 600};
     readonly List<float> spawnerPosition = new List<float> { 9, 12, 15, 18};
-    public float moveDelay = 1.0f;
+    public int moveDelay = 10;
+    private int currentDelay;
     public float moveDuration = 3.0f;
     public int position = 0;
     [SerializeField] GameObject abilitiesCanvas;
@@ -23,16 +24,15 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Move(position));
-        StartCoroutine(MoveToNextPosition());
+        currentDelay = moveDelay;
     }
 
-    private IEnumerator MoveToNextPosition()
+    public void Tick()
     {
-        while (position < transforms.Count-1)
+        currentDelay--;
+        if (currentDelay == 0 & position<transforms.Count-1)
         {
-            yield return new WaitForSeconds(moveDelay);
-            StartCoroutine(Move(this.position+1));
+            StartCoroutine(Move(this.position + 1));
         }
     }
 
