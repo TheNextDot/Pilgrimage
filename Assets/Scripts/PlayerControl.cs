@@ -86,7 +86,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (!passed)
         {
-            //AudioSource.PlayClipAtPoint(deathSFX, cameraLoc.transform.position);
+            AudioSource.PlayClipAtPoint(deathSFX, cameraLoc.transform.position);
             deathFX = Instantiate(deathFX, transform.position, transform.rotation);
             deathFX.GetComponent<ParticleSystem>().Play();
             Destroy(gameObject);
